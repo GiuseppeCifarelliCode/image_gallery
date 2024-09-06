@@ -1,25 +1,31 @@
-import logo from './logo.svg';
+import {useState} from 'react';
 import './App.css';
 
-function App() {
+
+function ImageGallery() {
+  const images = [
+    'https://loremflickr.com/200/300',
+    'http://baconmockup.com/200/300',
+    'http://placebear.com/200/300',
+    'https://loremflickr.com/200/300'
+  ];
+
+  const [selectedImage, setSelectedImage] = useState(null)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div className='gallery'>
+        {images.map((imgUrl, i) => (
+          <img key={i} src={imgUrl} alt={`Immagine #${i+1}`} onClick={() => setSelectedImage(imgUrl)}></img>
+        ))}
+      </div>
+        {selectedImage && (
+          <div className='lightbox' onClick={() => setSelectedImage(null)}>
+            <img src={selectedImage} alt='Immagine Selezionata'></img>
+          </div>
+        )}
     </div>
-  );
+  )
 }
 
-export default App;
+export default ImageGallery;
